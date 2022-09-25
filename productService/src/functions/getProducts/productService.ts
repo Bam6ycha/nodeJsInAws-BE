@@ -6,6 +6,6 @@ export const response = (): Promise<ResponseInterface> =>
     try {
       setTimeout(() => resolve(products), 2000);
     } catch (error) {
-      reject(error.message);
+      reject((error as Error).message);
     }
   });
