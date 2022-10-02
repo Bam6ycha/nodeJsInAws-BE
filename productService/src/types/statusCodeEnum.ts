@@ -1,0 +1,5 @@
+export enum HTTP_STATUS_CODES {
+  OK = 200,
+  NOT_FOUND = 404,
+  INTERNAL_SERVER_ERROR = 500,
+}
