@@ -6,12 +6,10 @@ import populateDataBase from '@functions/populateDataBase';
 import createProduct from '@functions/createProduct';
 import esBuildConfig from './esBuild.config';
 import swaggerConfig from './swagger.config';
-import {
-  PRODUCTS,
-  RESOURCE_NAME_PRODUCTS,
-  RESOURCE_NAME_STOCKS,
-  STOCKS,
-} from 'src/constants';
+import * as dotenv from 'dotenv';
+import { env } from 'process';
+
+dotenv.config();
 
 const serverlessConfiguration: AWS = {
   service: 'myservice',
@@ -27,8 +25,8 @@ const serverlessConfiguration: AWS = {
       shouldStartNameWithService: true,
     },
     environment: {
-      PRODUCTS_TABLE_NAME: PRODUCTS,
-      STOCKS_TABLE_NAME: STOCKS,
+      PRODUCTS_TABLE_NAME: env.PRODUCTS_TABLE_NAME,
+      STOCKS_TABLE_NAME: env.STOCKS_TABLE_NAME,
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
@@ -55,10 +53,10 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
-      [RESOURCE_NAME_PRODUCTS]: {
+      [env.PRODUCTS]: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
-          TableName: PRODUCTS,
+          TableName: env.PRODUCTS_TABLE_NAME,
           AttributeDefinitions: [
             {
               AttributeName: 'id',
@@ -77,10 +75,10 @@ const serverlessConfiguration: AWS = {
           },
         },
       },
-      [RESOURCE_NAME_STOCKS]: {
+      [env.STOCKS]: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
-          TableName: STOCKS,
+          TableName: env.STOCKS_TABLE_NAME,
           AttributeDefinitions: [
             {
               AttributeName: 'product_id',

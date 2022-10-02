@@ -30,12 +30,10 @@ const getPopulationData = products.reduce((previous, { count, ...rest }) => {
 }, []);
 
 const populateDataBase = async (event) => {
+  console.log(`Request URL :${event.path}`);
+  console.log(`Arguments: ${event.requestContext}`);
   try {
-    console.log(`Request URL :${event.path}`);
-    console.log(`Arguments: ${event.requestContext}`);
-
     await Promise.all(getPopulationData);
-    console.log(PRODUCTS_TABLE_NAME, STOCKS_TABLE_NAME);
     return formatJSONResponse(HTTP_STATUS_CODES.OK, {
       message: DATA_BASE_POPULATED_SUCCESSFULLY,
     });

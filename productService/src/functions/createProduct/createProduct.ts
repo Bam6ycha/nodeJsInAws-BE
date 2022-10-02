@@ -3,26 +3,22 @@ import { DynamoDB } from 'aws-sdk';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import { HTTP_STATUS_CODES } from 'src/types/statusCodeEnum';
-import { ProductInterface, RequestInterface } from 'src/types/interfaces';
+import { ProductInterface } from 'src/types/interfaces';
 import { addUUID, createStock, isValidateRequestBody } from 'src/utils';
-import {
-  ERROR_MESSAGES,
-  PRODUCTS,
-  PRODUCT_IS_NOT_VALID,
-  STOCKS,
-} from 'src/constants';
+import { ERROR_MESSAGES, PRODUCT_IS_NOT_VALID } from 'src/constants';
+import { env } from 'process';
 
 const dynamoDB = new DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
 const createProduct: ValidatedEventAPIGatewayProxyEvent<
   ProductInterface
 > = async (event) => {
+  console.log(`Request URL :${event.path}`);
+  console.log(`Arguments: ${event.requestContext}`);
+  const { PRODUCTS_TABLE_NAME, STOCKS_TABLE_NAME } = env;
   try {
-    console.log(`Request URL :${event.path}`);
-    console.log(`Arguments: ${event.requestContext}`);
-
     const requestBody = event.body as ProductInterface;
-    console.log(event.path);
+
     if (isValidateRequestBody(requestBody)) {
       const product = addUUID(requestBody);
       const stock = createStock(product);
@@ -30,13 +26,13 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<
       await Promise.all([
         dynamoDB
           .put({
-            TableName: PRODUCTS,
+            TableName: PRODUCTS_TABLE_NAME,
             Item: product,
           })
           .promise(),
         dynamoDB
           .put({
-            TableName: STOCKS,
+            TableName: STOCKS_TABLE_NAME,
             Item: stock,
           })
           .promise(),

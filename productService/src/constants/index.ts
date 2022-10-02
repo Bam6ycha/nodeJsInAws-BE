@@ -21,11 +21,6 @@ export const DATA_BASE_POPULATED_SUCCESSFULLY =
   'Data base was populated successfully.';
 export const DATA_BASE_POPULATION_FAILED = 'Failed to populate.';
 
-export const PRODUCTS = '';
-export const STOCKS = '';
-export const RESOURCE_NAME_PRODUCTS = '';
-export const RESOURCE_NAME_STOCKS = '';
-
 export const PRODUCT_IS_NOT_VALID = 'Is not valid';
 const IS_NOT_VALID = 'Product is not valid';
 

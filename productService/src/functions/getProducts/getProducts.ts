@@ -3,23 +3,24 @@ import { DynamoDB } from 'aws-sdk';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 
-import { CANNOT_GET_PRODUCTS, PRODUCTS, STOCKS } from 'src/constants';
+import { CANNOT_GET_PRODUCTS } from 'src/constants';
 import { HTTP_STATUS_CODES } from 'src/types/statusCodeEnum';
 import { createProductWithCount } from 'src/utils';
 import { ProductInterface, StockInterface } from 'src/types/interfaces';
+import { env } from 'process';
 
 const dynamoDB = new DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
 const getProducts: ValidatedEventAPIGatewayProxyEvent<
   Record<string, unknown>
 > = async (event) => {
+  console.log(`Request URL :${event.path}`);
+  console.log(`Arguments: ${event.requestContext}`);
+  const { PRODUCTS_TABLE_NAME, STOCKS_TABLE_NAME } = env;
   try {
-    console.log(`Request URL :${event.path}`);
-    console.log(`Arguments: ${event.requestContext}`);
-
     const [{ Items: productsFromDB }, { Items: stocks }] = await Promise.all([
-      dynamoDB.scan({ TableName: PRODUCTS }).promise(),
-      dynamoDB.scan({ TableName: STOCKS }).promise(),
+      dynamoDB.scan({ TableName: PRODUCTS_TABLE_NAME }).promise(),
+      dynamoDB.scan({ TableName: STOCKS_TABLE_NAME }).promise(),
     ]);
 
     const products = createProductWithCount(
