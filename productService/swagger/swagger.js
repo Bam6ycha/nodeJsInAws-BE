@@ -22,7 +22,38 @@
           "200": {
             "description": "Get products success",
             "schema": {
-              "$ref": "#/definitions/ResponseInterface"
+              "$ref": "#/definitions/CreteProductResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/message"
+            }
+          }
+        },
+        "security": [
+          {
+            "Access-Control-Allow-Origin": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "createProduct",
+        "description": "",
+        "operationId": "createProduct.post.products",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Product was created",
+            "schema": {
+              "$ref": "#/definitions/CreteProductResponse"
             }
           },
           "404": {
@@ -70,6 +101,30 @@
             "schema": {
               "$ref": "#/definitions/message"
             }
+          }
+        },
+        "security": [
+          {
+            "Access-Control-Allow-Origin": []
+          }
+        ]
+      }
+    },
+    "/populate": {
+      "get": {
+        "summary": "populateDataBase",
+        "description": "",
+        "operationId": "populateDataBase.get.populate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "200 response"
           }
         },
         "security": [
@@ -131,6 +186,50 @@
       "additionalProperties": false,
       "title": "ProductInterface",
       "type": "object"
+    },
+    "StockInterface": {
+      "properties": {
+        "product_id": {
+          "title": "StockInterface.product_id",
+          "type": "string"
+        },
+        "count": {
+          "title": "StockInterface.count",
+          "type": "number"
+        }
+      },
+      "required": [
+        "product_id",
+        "count"
+      ],
+      "additionalProperties": false,
+      "title": "StockInterface",
+      "type": "object"
+    },
+    "RequestInterface": {
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/ProductInterface",
+          "title": "RequestInterface.body"
+        }
+      },
+      "required": [
+        "body"
+      ],
+      "additionalProperties": false,
+      "title": "RequestInterface",
+      "type": "object"
+    },
+    "CreteProductResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProductInterface"
+        },
+        {
+          "$ref": "#/definitions/StockInterface"
+        }
+      ],
+      "title": "CreteProductResponse"
     }
   },
   "securityDefinitions": {

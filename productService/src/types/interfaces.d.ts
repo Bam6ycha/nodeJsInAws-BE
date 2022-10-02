@@ -9,3 +9,14 @@ export interface ProductInterface {
   price: number;
   title: string;
 }
+
+export interface StockInterface {
+  product_id: string;
+  count: number;
+}
+
+export interface RequestInterface {
+  body: ProductInterface;
+}
+
+export type CreteProductResponse = ProductInterface & StockInterface;

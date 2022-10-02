@@ -3,10 +3,10 @@ import { ResponseDataInterface } from 'src/types/responseDataInterface';
 const getProductsResponseData: ResponseDataInterface = {
   200: {
     description: 'Get products success',
-    bodyType: 'ResponseInterface',
+    bodyType: 'CreteProductResponse',
   },
-  404: {
-    description: 'Products not found',
+  400: {
+    description: 'Bad request',
     bodyType: 'message',
   },
 };
