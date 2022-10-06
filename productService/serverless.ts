@@ -41,7 +41,7 @@ const serverlessConfiguration: AWS = {
           'dynamodb:UpdateItem',
           'dynamodb:DeleteItem',
         ],
-        Resource: 'arn:aws:dynamodb:eu-west-1:506108326925:table/*',
+        Resource: env.DYNAMODB_ARN,
       },
     ],
   },

@@ -1,9 +1,9 @@
 import { handlerPath } from '@libs/handler-resolver';
-import { CREATE_PRODUCT, PATH_TO_HANDLERS } from 'src/constants';
+import { PathToHandlersEnum } from 'src/types/pathToHandlersEnum';
 import { createProductsResponseData } from './responseData';
 
 export default {
-  handler: `${handlerPath(__dirname)}/${PATH_TO_HANDLERS[CREATE_PRODUCT]}`,
+  handler: `${handlerPath(__dirname)}/${PathToHandlersEnum.CREATE_PRODUCT}`,
   events: [
     {
       http: {

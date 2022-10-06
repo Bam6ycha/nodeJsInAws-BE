@@ -1,10 +1,10 @@
 import { DynamoDB } from 'aws-sdk';
 import productsStub from '../../productsDataStub/products.stub.json';
 import { v4 as uuidv4 } from 'uuid';
-import { DATA_BASE_POPULATED_SUCCESSFULLY } from 'src/constants';
 import { middyfy } from '@libs/lambda';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { HTTP_STATUS_CODES } from 'src/types/statusCodeEnum';
+import { ResponseMessagesEnum } from 'src/types/responseMessagesUnum';
 
 const { products } = productsStub;
 const { PRODUCTS_TABLE_NAME, STOCKS_TABLE_NAME } = process.env;
@@ -35,7 +35,7 @@ const populateDataBase = async (event) => {
   try {
     await Promise.all(getPopulationData);
     return formatJSONResponse(HTTP_STATUS_CODES.OK, {
-      message: DATA_BASE_POPULATED_SUCCESSFULLY,
+      message: ResponseMessagesEnum.DATA_BASE_POPULATED_SUCCESSFULLY,
     });
   } catch (error) {
     return formatJSONResponse(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR, {

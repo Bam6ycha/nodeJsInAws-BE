@@ -5,8 +5,8 @@ import { middyfy } from '@libs/lambda';
 import { HTTP_STATUS_CODES } from 'src/types/statusCodeEnum';
 import { ProductInterface } from 'src/types/interfaces';
 import { addUUID, createStock, isValidateRequestBody } from 'src/utils';
-import { ERROR_MESSAGES, PRODUCT_IS_NOT_VALID } from 'src/constants';
 import { env } from 'process';
+import { ResponseMessagesEnum } from 'src/types/responseMessagesUnum';
 
 const dynamoDB = new DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
@@ -40,7 +40,7 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<
 
       return formatJSONResponse(HTTP_STATUS_CODES.CREATED, { product, stock });
     } else {
-      throw Error(ERROR_MESSAGES[PRODUCT_IS_NOT_VALID]);
+      throw Error(ResponseMessagesEnum.PRODUCT_IS_NOT_VALID);
     }
   } catch (error) {
     console.log(event);

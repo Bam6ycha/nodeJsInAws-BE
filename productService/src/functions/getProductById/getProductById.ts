@@ -2,9 +2,9 @@ import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { DynamoDB } from 'aws-sdk';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { INCORRECT_ID_MESSAGE } from 'src/constants';
 import { HTTP_STATUS_CODES } from 'src/types/statusCodeEnum';
 import { env } from 'process';
+import { ResponseMessagesEnum } from 'src/types/responseMessagesUnum';
 
 const dynamoDB = new DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
@@ -41,7 +41,7 @@ const getProductById: ValidatedEventAPIGatewayProxyEvent<
         count: stock.count,
       });
     } else {
-      throw new Error(INCORRECT_ID_MESSAGE);
+      throw new Error(ResponseMessagesEnum.INCORRECT_ID_MESSAGE);
     }
   } catch (error) {
     return formatJSONResponse(HTTP_STATUS_CODES.NOT_FOUND, {

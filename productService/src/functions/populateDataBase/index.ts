@@ -1,8 +1,10 @@
 import { handlerPath } from '@libs/handler-resolver';
-import { PATH_TO_HANDLERS, POPULATE_DATABASE } from 'src/constants';
+import { PathToHandlersEnum } from 'src/types/pathToHandlersEnum';
 
 export default {
-  handler: `${handlerPath(__dirname)}/${PATH_TO_HANDLERS[POPULATE_DATABASE]}`,
+  handler: `${handlerPath(__dirname)}/${
+    PathToHandlersEnum.POPULATE_DATABASE_PATH
+  }`,
   events: [
     {
       http: {

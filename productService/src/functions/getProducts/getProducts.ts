@@ -2,12 +2,11 @@ import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { DynamoDB } from 'aws-sdk';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-
-import { CANNOT_GET_PRODUCTS } from 'src/constants';
 import { HTTP_STATUS_CODES } from 'src/types/statusCodeEnum';
 import { createProductWithCount } from 'src/utils';
 import { ProductInterface, StockInterface } from 'src/types/interfaces';
 import { env } from 'process';
+import { ResponseMessagesEnum } from 'src/types/responseMessagesUnum';
 
 const dynamoDB = new DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
@@ -33,7 +32,7 @@ const getProducts: ValidatedEventAPIGatewayProxyEvent<
         products,
       });
     } else {
-      throw new Error(CANNOT_GET_PRODUCTS);
+      throw new Error(ResponseMessagesEnum.CANNOT_GET_PRODUCTS);
     }
   } catch (error) {
     formatJSONResponse(HTTP_STATUS_CODES.NOT_FOUND, {

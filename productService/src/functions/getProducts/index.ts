@@ -1,9 +1,9 @@
 import { handlerPath } from '@libs/handler-resolver';
-import { GET_PRODUCTS, PATH_TO_HANDLERS } from 'src/constants';
+import { PathToHandlersEnum } from 'src/types/pathToHandlersEnum';
 import getProductsResponseData from './responseData';
 
 export default {
-  handler: `${handlerPath(__dirname)}/${PATH_TO_HANDLERS[GET_PRODUCTS]}`,
+  handler: `${handlerPath(__dirname)}/${PathToHandlersEnum.GET_PRODUCTS}`,
   events: [
     {
       http: {
