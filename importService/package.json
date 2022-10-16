@@ -4,8 +4,8 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "invokeLocally": "serverless invoke local --function",
-    "deploy": "serverless deploy"
+    "deploy": "serverless deploy",
+    "invokeLocally": "serverless invoke local --function"
   },
   "engines": {
     "node": ">=14.15.0"

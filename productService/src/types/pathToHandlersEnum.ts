@@ -3,4 +3,5 @@ export enum PathToHandlersEnum {
   GET_PRODUCT_BY_ID = 'getProductById.main',
   POPULATE_DATABASE_PATH = 'populateDataBase.main',
   CREATE_PRODUCT = 'createProduct.main',
+  CATALOG_BATCH_PROCESS = 'catalogBatchProcess.main',
 }

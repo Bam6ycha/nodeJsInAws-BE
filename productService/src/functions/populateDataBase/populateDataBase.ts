@@ -10,24 +10,27 @@ const { products } = productsStub;
 const { PRODUCTS_TABLE_NAME, STOCKS_TABLE_NAME } = process.env;
 
 const dynamoDB = new DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
-const getPopulationData = products.reduce((previous, { count, ...rest }) => {
-  const uuid = uuidv4();
+export const getPopulationData = products.reduce(
+  (previous, { count, ...rest }) => {
+    const uuid = uuidv4();
 
-  return previous.concat(
-    dynamoDB
-      .put({
-        TableName: PRODUCTS_TABLE_NAME,
-        Item: { ...rest, id: uuid },
-      })
-      .promise(),
-    dynamoDB
-      .put({
-        TableName: STOCKS_TABLE_NAME,
-        Item: { product_id: uuid, count },
-      })
-      .promise(),
-  );
-}, []);
+    return previous.concat(
+      dynamoDB
+        .put({
+          TableName: PRODUCTS_TABLE_NAME,
+          Item: { ...rest, id: uuid },
+        })
+        .promise(),
+      dynamoDB
+        .put({
+          TableName: STOCKS_TABLE_NAME,
+          Item: { product_id: uuid, count },
+        })
+        .promise(),
+    );
+  },
+  [],
+);
 
 const populateDataBase = async (event) => {
   console.log(`Request URL :${event.path}`);

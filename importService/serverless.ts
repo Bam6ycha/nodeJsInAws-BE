@@ -23,6 +23,7 @@ const serverlessConfiguration: AWS = {
     },
     environment: {
       BUCKET_NAME: env.BUCKET,
+      SQS_QUEUE_URL: { 'Fn::ImportValue': `${env.QUEUE_NAME}URL` },
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
@@ -36,6 +37,11 @@ const serverlessConfiguration: AWS = {
         Effect: 'Allow',
         Action: ['s3:*'],
         Resource: `${env.BUCKET_ARN}/*`,
+      },
+      {
+        Effect: 'Allow',
+        Action: ['sqs:*'],
+        Resource: { 'Fn::ImportValue': `${env.QUEUE_NAME}ARN` },
       },
     ],
   },
