@@ -1,0 +1,14 @@
+# package directories
+node_modules
+jspm_packages
+
+# env variables
+.env
+
+# build
+dist
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
